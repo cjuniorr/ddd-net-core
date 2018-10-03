@@ -7,6 +7,6 @@ namespace YouLearn.Domain.Entities
         public Guid Id { get; set; }
         public string Name { get; set; }
         public string UrlLogo { get; set; }
-        public string User { get; set; }
+        public User User { get; set; }
     }
 }
