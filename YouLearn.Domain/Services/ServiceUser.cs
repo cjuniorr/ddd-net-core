@@ -56,10 +56,7 @@ namespace YouLearn.Domain.Services
                 throw new Exception("User, User data not found");
             }
 
-            var response = new UserAuthenticateResponse() {
-                Id = user.Id,
-                FirstName = user.Name.FirstName,
-            };
+            var response = (UserAuthenticateResponse)user;
 
             return response;
         }
