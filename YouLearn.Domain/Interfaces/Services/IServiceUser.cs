@@ -6,6 +6,5 @@ namespace YouLearn.Domain.Interfaces.Services
     {
         AddUserResponse AddUser(AddUserRequest request);
         UserAuthenticateResponse UserAuthenticate(UserAuthenticateRequest request);
-
     }
 }
