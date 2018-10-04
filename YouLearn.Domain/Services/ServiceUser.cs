@@ -39,7 +39,29 @@ namespace YouLearn.Domain.Services
 
         public UserAuthenticateResponse UserAuthenticate(UserAuthenticateRequest request)
         {
-            throw new System.NotImplementedException();
+            if(request == null)
+            {
+                throw new Exception("UserAuthenticateRequest object is required");
+            }
+
+            var email = new Email(request.Email);
+            var user = new User(email, request.Password);
+
+            if (this.IsInvalid()) return null;
+
+            user = _repositoryUser.Get(user.Email.Address, user.Password);
+
+            if (user == null)
+            {
+                throw new Exception("User, User data not found");
+            }
+
+            var response = new UserAuthenticateResponse() {
+                Id = user.Id,
+                FirstName = user.Name.FirstName,
+            };
+
+            return response;
         }
     }
 }

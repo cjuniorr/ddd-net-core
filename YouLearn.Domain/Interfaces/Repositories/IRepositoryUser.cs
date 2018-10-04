@@ -7,7 +7,6 @@ namespace YouLearn.Domain.Interfaces.Repositories
     {
         User Get(Guid id);
         User Get(string email, string password);
-
         void Save(User user);
         bool Found(string email);
     }
