@@ -6,7 +6,8 @@ namespace YouLearn.Domain.Entities
 {
     public class Playlist : EntityBase
     {
-        public User User { get; set; }
-        public EnumStatus Status { get; set; }
+        public string Name { get; private set; }
+        public User User { get; private set; }
+        public EnumStatus Status { get; private set; }
     }
 }
