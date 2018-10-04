@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using YouLearn.Domain.Entities;
 using YouLearn.Domain.Interfaces.Repositories;
 using YouLearn.Infra.Persistence.EF;
@@ -10,24 +9,30 @@ namespace YouLearn.Infra.Persistence.Repositories
     public class RepositoryUser : IRepositoryUser
     {
         private readonly YouLearnContext _context;
+
+        public RepositoryUser(YouLearnContext context)
+        {
+            _context = context;
+        }
+
         public bool Found(string email)
         {
-            throw new NotImplementedException();
+            return _context.Users.Any(x => x.Email.Address == email);
         }
 
         public User Get(Guid id)
         {
-            throw new NotImplementedException();
+            return _context.Users.FirstOrDefault(x => x.Id == id);
         }
 
         public User Get(string email, string password)
         {
-            throw new NotImplementedException();
+            return _context.Users.FirstOrDefault(x => x.Email.Address == email && x.Password == password);
         }
 
         public void Save(User user)
         {
-            throw new NotImplementedException();
+            _context.Users.Add(user);
         }
     }
 }
