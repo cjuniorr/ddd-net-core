@@ -16,6 +16,6 @@ namespace YouLearn.Domain.ValueObjects
             }
         }
 
-        public string Address { get; set; }
+        public string Address { get; private set; }
     }
 }

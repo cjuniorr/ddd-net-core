@@ -2,6 +2,7 @@
 using System;
 using YouLearn.Domain.Arguments.User;
 using YouLearn.Domain.Entities;
+using YouLearn.Domain.Interfaces.Repositories;
 using YouLearn.Domain.Interfaces.Services;
 using YouLearn.Domain.ValueObjects;
 
@@ -9,6 +10,13 @@ namespace YouLearn.Domain.Services
 {
     public class ServiceUser : Notifiable, IServiceUser
     {
+        private readonly IRepositoryUser _repositoryUser;
+
+        public ServiceUser(IRepositoryUser repositoryUser)
+        {
+            _repositoryUser = repositoryUser;
+        }
+
         public AddUserResponse AddUser(AddUserRequest request)
         {
             if (request == null)
@@ -20,20 +28,13 @@ namespace YouLearn.Domain.Services
             Name name = new Name(request.FirstName, request.LastName);
             Email email = new Email(request.Email);
 
-            User user = new User();
-            user.Name = name;
-            user.Email = email;
-            user.Password = request.Password;
+            User user = new User(name, email, request.Password);
 
+            if (this.IsInvalid()) return null;
 
-            if (user.Password.Length <= 3 )
-            {
-                throw new Exception("The password needs to contain at least 3 characters.");
-            }
+            _repositoryUser.Save(user);
 
-            //AddUserResponse response = new RepositoryUser().Save(user);
-            //return response;
-            return new AddUserResponse(Guid.NewGuid());
+            return new AddUserResponse(user.Id);
         }
 
         public UserAuthenticateResponse UserAuthenticate(UserAuthenticateRequest request)

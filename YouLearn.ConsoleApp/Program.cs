@@ -13,7 +13,7 @@ namespace YouLearn.ConsoleApp
                 Email = "celiopaivajr@gmail.com",
                 FirstName = "Celio",
                 LastName = "Teixeira Paiva",
-                Password = "123"
+                Password = "123aewqeetre"
             };
 
             var response = new ServiceUser().AddUser(request);
